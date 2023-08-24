@@ -19,7 +19,8 @@ public class EdwinTeleop extends LinearOpMode {
 
         // Retrieve our pose from the PoseStorage.currentPose static field
         // See AutoTransferPose.java for further details
-
+        telemetry.addData("Status", "Initialized");
+        telemetry.update();
         waitForStart();
 
         if (isStopRequested()) return;
