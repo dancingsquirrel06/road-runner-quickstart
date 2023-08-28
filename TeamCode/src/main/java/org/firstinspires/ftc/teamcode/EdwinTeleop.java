@@ -15,11 +15,10 @@ public class EdwinTeleop extends LinearOpMode {
         SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
 
-
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
-        // Retrieve our pose from the PoseStorage.currentPose static field
-        // See AutoTransferPose.java for further details
+
+        //initialize status
         telemetry.addData("Status", "Initialized");
         telemetry.update();
         waitForStart();
@@ -36,6 +35,7 @@ public class EdwinTeleop extends LinearOpMode {
                     -gamepad1.left_stick_y,
                     -gamepad1.left_stick_x
             ).rotated(-poseEstimate.getHeading());
+            //set drivevelocity (defalt = 0.7, slow mode = 0.35)
             double driveVelocity = (0.7 - 0.35 * gamepad1.left_trigger);
 
             // Pass in the rotated input + right stick value for rotation
