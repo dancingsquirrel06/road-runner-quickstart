@@ -36,7 +36,7 @@ public class EdwinTeleop extends LinearOpMode {
                     -gamepad1.left_stick_y,
                     -gamepad1.left_stick_x
             ).rotated(-poseEstimate.getHeading());
-            double driveVelocity = (0.35 + 0.35 * gamepad1.left_trigger);
+            double driveVelocity = (0.7 - 0.35 * gamepad1.left_trigger);
 
             // Pass in the rotated input + right stick value for rotation
             // Rotation is not part of the rotated input thus must be passed in separately
