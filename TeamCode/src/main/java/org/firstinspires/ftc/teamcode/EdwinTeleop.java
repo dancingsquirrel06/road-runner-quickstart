@@ -9,12 +9,14 @@ import org.firstinspires.ftc.teamcode.drive.SampleMecanumDrive;
 @TeleOp
 public class EdwinTeleop extends LinearOpMode {
     private ElapsedTime runtime = new ElapsedTime();
+
+    private SampleMecanumDrive drive;
     @Override
     public void runOpMode() throws InterruptedException {
         // Initialize SampleMecanumDrive
-        SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
+        //SampleMecanumDrive drive = new SampleMecanumDrive(hardwareMap);
 
-
+        drive = new SampleMecanumDrive(hardwareMap);
         drive.setMode(DcMotor.RunMode.RUN_WITHOUT_ENCODER);
 
 
@@ -27,15 +29,23 @@ public class EdwinTeleop extends LinearOpMode {
 
         while (opModeIsActive() && !isStopRequested()) {
             // Read pose
+
             Pose2d poseEstimate = drive.getPoseEstimate();
 
+
+            if (gamepad1.options) {
+                //reset directions button
+                drive.getImu().resetYaw();
+
+            }
             // Create a vector from the gamepad x/y inputs
             // Then, rotate that vector by the inverse of that heading
             Vector2d input = new Vector2d(
                     -gamepad1.left_stick_y,
                     -gamepad1.left_stick_x
             ).rotated(-poseEstimate.getHeading());
-            //set drivevelocity (defalt = 0.7, slow mode = 0.35)
+
+            //drivevelocity (defalt = 0.7, slow mode = 0.35)
             double driveVelocity = (0.7 - 0.35 * gamepad1.left_trigger);
 
             // Pass in the rotated input + right stick value for rotation
@@ -50,7 +60,6 @@ public class EdwinTeleop extends LinearOpMode {
 
 
             drive.update();
-
 
             telemetry.addData("x", poseEstimate.getX());
             telemetry.addData("y", poseEstimate.getY());
